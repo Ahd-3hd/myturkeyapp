@@ -24,7 +24,9 @@ class _HomeState extends State<Home> {
 
   void searchPropertiesLocation(query) async {
     if (query == 'all') {
-      extractedData = data;
+      setState(() {
+        extractedData = data;
+      });
     } else {
       setState(() {
         extractedData = data
@@ -61,49 +63,67 @@ class _HomeState extends State<Home> {
           ? Text('Loading')
           : Column(
               children: <Widget>[
-                Form(
-                  child: Row(
-                    children: <Widget>[
-                      Column(children: [
-                        Text('Location'),
-                        new DropdownButton<String>(
-                          items: <String>[
-                            'all',
-                            'Antalia',
-                            'Bursa',
-                            'Fethiye',
-                            'Istanbul'
-                          ].map((String value) {
-                            return new DropdownMenuItem<String>(
-                              value: value,
-                              child: new Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (query) {
-                            searchPropertiesLocation(query);
-                          },
-                        ),
-                      ]),
-                      Column(children: [
-                        Text('Type'),
-                        new DropdownButton<String>(
-                          items: <String>[
-                            'all',
-                            'Apartment',
-                            'Penthouse',
-                            'Villa',
-                          ].map((String value) {
-                            return new DropdownMenuItem<String>(
-                              value: value,
-                              child: new Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (query) {
-                            searchPropertiesType(query);
-                          },
-                        ),
-                      ]),
-                    ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Location',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              new DropdownButton<String>(
+                                items: <String>[
+                                  'all',
+                                  'Antalia',
+                                  'Bursa',
+                                  'Fethiye',
+                                  'Istanbul'
+                                ].map((String value) {
+                                  return new DropdownMenuItem<String>(
+                                    value: value,
+                                    child: new Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: (query) {
+                                  searchPropertiesLocation(query);
+                                },
+                              ),
+                            ]),
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Type',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              new DropdownButton<String>(
+                                items: <String>[
+                                  'all',
+                                  'Apartment',
+                                  'Penthouse',
+                                  'Villa',
+                                ].map((String value) {
+                                  return new DropdownMenuItem<String>(
+                                    value: value,
+                                    child: new Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: (query) {
+                                  searchPropertiesType(query);
+                                },
+                              ),
+                            ]),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
