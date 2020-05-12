@@ -38,7 +38,9 @@ class _HomeState extends State<Home> {
 
   void searchPropertiesType(query) async {
     if (query == 'all') {
-      extractedData = data;
+      setState(() {
+        extractedData = data;
+      });
     } else {
       setState(() {
         extractedData =
@@ -76,6 +78,7 @@ class _HomeState extends State<Home> {
                                 'Location',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  fontFamily: 'Montserrat',
                                 ),
                               ),
                               new DropdownButton<String>(
@@ -103,6 +106,7 @@ class _HomeState extends State<Home> {
                                 'Type',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  fontFamily: 'Montserrat',
                                 ),
                               ),
                               new DropdownButton<String>(
@@ -139,6 +143,7 @@ class _HomeState extends State<Home> {
                               single['acf']['bathrooms'],
                               single['acf']['size'],
                               single['acf']['type'],
+                              single['acf']['location'],
                             ),
                           )
                           .toList()),
@@ -158,8 +163,9 @@ class Item extends StatelessWidget {
   final String bathrooms;
   final String size;
   final String type;
+  final String location;
   const Item(this.title, this.price, this.imageurl, this.baseCurrency,
-      this.bedrooms, this.bathrooms, this.size, this.type);
+      this.bedrooms, this.bathrooms, this.size, this.type, this.location);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -177,8 +183,19 @@ class Item extends StatelessWidget {
               this.title,
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.blueGrey[900],
+                color: Colors.blueGrey[600],
                 fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat',
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              this.location,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.blueGrey[600],
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat',
               ),
             ),
             SizedBox(height: 10),
@@ -186,7 +203,9 @@ class Item extends StatelessWidget {
               '${this.baseCurrency} ${this.price}',
               style: TextStyle(
                 fontSize: 15,
-                color: Colors.blueGrey[900],
+                color: Colors.blueGrey[700],
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(height: 10),
@@ -201,9 +220,18 @@ class Item extends StatelessWidget {
                       child: Icon(
                         FontAwesomeIcons.hotTub,
                         size: 17,
+                        color: Colors.blueGrey[600],
                       ),
                     ),
-                    Text(this.bathrooms),
+                    Text(
+                      this.bathrooms,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.blueGrey[700],
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -217,9 +245,18 @@ class Item extends StatelessWidget {
                       child: Icon(
                         FontAwesomeIcons.ruler,
                         size: 17,
+                        color: Colors.blueGrey[600],
                       ),
                     ),
-                    Text('${this.size} ft sq'),
+                    Text(
+                      '${this.size} ft sq',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.blueGrey[700],
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -233,9 +270,18 @@ class Item extends StatelessWidget {
                       child: Icon(
                         FontAwesomeIcons.home,
                         size: 17,
+                        color: Colors.blueGrey[600],
                       ),
                     ),
-                    Text(this.type),
+                    Text(
+                      this.type,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.blueGrey[700],
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -249,9 +295,18 @@ class Item extends StatelessWidget {
                       child: Icon(
                         FontAwesomeIcons.bed,
                         size: 17,
+                        color: Colors.blueGrey[600],
                       ),
                     ),
-                    Text(this.bedrooms),
+                    Text(
+                      this.bedrooms,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.blueGrey[700],
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ),
