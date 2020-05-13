@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myturkeyproperty/services/properties.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:myturkeyproperty/pages/single_page.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _HomeState extends State<Home> {
       data = instance.myData;
       extractedData = data;
       isLoading = false;
+      print(data[0]);
       extractedData.length > 0
           ? isContainingResult = true
           : isContainingResult = false;
@@ -194,16 +196,39 @@ class _HomeState extends State<Home> {
                         child: ListView(
                             children: extractedData
                                 .map(
-                                  (single) => Item(
-                                    single['title']['rendered'],
-                                    single['acf']['price'],
-                                    single['acf']['image_one'],
-                                    single['acf']['base_currency'],
-                                    single['acf']['bedrooms'],
-                                    single['acf']['bathrooms'],
-                                    single['acf']['size'],
-                                    single['acf']['type'],
-                                    single['acf']['location'],
+                                  (single) => InkWell(
+                                    onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SinglePage(
+                                          propertyData: {
+                                            'title': single['title']
+                                                ['rendered'],
+                                            'id': single['id'],
+                                          },
+                                          imgList: [
+                                            single['acf']['image_one'],
+                                            single['acf']['image_two'],
+                                            single['acf']['image_three'],
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    child: Item(
+                                        single['title']['rendered'],
+                                        single['acf']['price'],
+                                        single['acf']['image_one'],
+                                        single['acf']['base_currency'],
+                                        single['acf']['bedrooms'],
+                                        single['acf']['bathrooms'],
+                                        single['acf']['size'],
+                                        single['acf']['type'],
+                                        single['acf']['location'],
+                                        single['id'], [
+                                      single['acf']['image_one'],
+                                      single['acf']['image_two'],
+                                      single['acf']['image_three'],
+                                    ]),
                                   ),
                                 )
                                 .toList()),
@@ -225,8 +250,20 @@ class Item extends StatelessWidget {
   final String size;
   final String type;
   final String location;
-  const Item(this.title, this.price, this.imageurl, this.baseCurrency,
-      this.bedrooms, this.bathrooms, this.size, this.type, this.location);
+  final int itemID;
+  final List images;
+  const Item(
+      this.title,
+      this.price,
+      this.imageurl,
+      this.baseCurrency,
+      this.bedrooms,
+      this.bathrooms,
+      this.size,
+      this.type,
+      this.location,
+      this.itemID,
+      this.images);
   @override
   Widget build(BuildContext context) {
     return Container(
