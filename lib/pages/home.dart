@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
   }
 
   void searchProperties(query) async {
-    if (query == 'all') {
+    if (query['query']['keyword'] == 'all') {
       setState(() {
         extractedData = data;
       });
