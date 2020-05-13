@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
     });
   }
 
-  void searchPropertiesLocation(query) async {
+  void searchProperties(query) async {
     if (query == 'all') {
       setState(() {
         extractedData = data;
@@ -30,21 +30,10 @@ class _HomeState extends State<Home> {
     } else {
       setState(() {
         extractedData = data
-            .where((element) => element['acf']['location'] == query)
+            .where((element) =>
+                element['acf'][query['query']['search_type']] ==
+                query['query']['keyword'])
             .toList();
-      });
-    }
-  }
-
-  void searchPropertiesType(query) async {
-    if (query == 'all') {
-      setState(() {
-        extractedData = data;
-      });
-    } else {
-      setState(() {
-        extractedData =
-            data.where((element) => element['acf']['type'] == query).toList();
       });
     }
   }
@@ -95,7 +84,12 @@ class _HomeState extends State<Home> {
                                   );
                                 }).toList(),
                                 onChanged: (query) {
-                                  searchPropertiesLocation(query);
+                                  searchProperties({
+                                    'query': {
+                                      'keyword': query,
+                                      'search_type': 'location'
+                                    }
+                                  });
                                 },
                               ),
                             ]),
@@ -122,7 +116,12 @@ class _HomeState extends State<Home> {
                                   );
                                 }).toList(),
                                 onChanged: (query) {
-                                  searchPropertiesType(query);
+                                  searchProperties({
+                                    'query': {
+                                      'keyword': query,
+                                      'search_type': 'type'
+                                    }
+                                  });
                                 },
                               ),
                             ]),
