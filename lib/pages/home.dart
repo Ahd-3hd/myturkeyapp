@@ -11,7 +11,7 @@ class _HomeState extends State<Home> {
   List data;
   List extractedData;
   bool isLoading = true;
-
+  bool isContainingResult = false;
   void getProperties() async {
     Properties instance = Properties();
     await instance.getData();
@@ -19,11 +19,28 @@ class _HomeState extends State<Home> {
       data = instance.myData;
       extractedData = data;
       isLoading = false;
+      extractedData.length > 0
+          ? isContainingResult = true
+          : isContainingResult = false;
     });
   }
 
   void searchProperties(query) async {
-    if (query['query']['keyword'] == 'all') {
+    if (query['query']['search_type'] == 'price') {
+      if (query['query']['keyword'] == 'all') {
+        setState(() {
+          extractedData = data;
+        });
+      } else {
+        setState(() {
+          extractedData = data
+              .where((element) =>
+                  int.parse(element['acf'][query['query']['search_type']]) >=
+                  int.parse(query['query']['keyword']))
+              .toList();
+        });
+      }
+    } else if (query['query']['keyword'] == 'all') {
       setState(() {
         extractedData = data;
       });
@@ -36,7 +53,18 @@ class _HomeState extends State<Home> {
             .toList();
       });
     }
+    if (extractedData.length > 0) {
+      setState(() {
+        isContainingResult = true;
+      });
+    } else {
+      setState(() {
+        isContainingResult = false;
+      });
+    }
   }
+
+  void submitSearch() async {}
 
   @override
   void initState() {
@@ -125,28 +153,62 @@ class _HomeState extends State<Home> {
                                 },
                               ),
                             ]),
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Max Price',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Montserrat',
+                                ),
+                              ),
+                              new DropdownButton<String>(
+                                items: <String>[
+                                  '10000',
+                                  '20000',
+                                  '30000',
+                                  '40000',
+                                ].map((String value) {
+                                  return new DropdownMenuItem<String>(
+                                    value: value,
+                                    child: new Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: (query) {
+                                  searchProperties({
+                                    'query': {
+                                      'keyword': query,
+                                      'search_type': 'price'
+                                    }
+                                  });
+                                },
+                              ),
+                            ]),
                       ],
                     ),
                   ),
                 ),
-                Expanded(
-                  child: ListView(
-                      children: extractedData
-                          .map(
-                            (single) => Item(
-                              single['title']['rendered'],
-                              single['acf']['price'],
-                              single['acf']['image_one'],
-                              single['acf']['base_currency'],
-                              single['acf']['bedrooms'],
-                              single['acf']['bathrooms'],
-                              single['acf']['size'],
-                              single['acf']['type'],
-                              single['acf']['location'],
-                            ),
-                          )
-                          .toList()),
-                ),
+                isContainingResult
+                    ? Expanded(
+                        child: ListView(
+                            children: extractedData
+                                .map(
+                                  (single) => Item(
+                                    single['title']['rendered'],
+                                    single['acf']['price'],
+                                    single['acf']['image_one'],
+                                    single['acf']['base_currency'],
+                                    single['acf']['bedrooms'],
+                                    single['acf']['bathrooms'],
+                                    single['acf']['size'],
+                                    single['acf']['type'],
+                                    single['acf']['location'],
+                                  ),
+                                )
+                                .toList()),
+                      )
+                    : Text('No Results'),
               ],
             ),
     );
