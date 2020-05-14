@@ -205,6 +205,17 @@ class _HomeState extends State<Home> {
                                             'title': single['title']
                                                 ['rendered'],
                                             'id': single['id'],
+                                            'price': single['acf']['price'],
+                                            'currency': single['acf']
+                                                ['base_currency'],
+                                            'bathrooms': single['acf']
+                                                ['bathrooms'],
+                                            'bedrooms': single['acf']
+                                                ['bedrooms'],
+                                            'type': single['acf']['type'],
+                                            'size': single['acf']['size'],
+                                            'location': single['acf']
+                                                ['location']
                                           },
                                           imgList: [
                                             single['acf']['image_one'],
@@ -307,108 +318,111 @@ class Item extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Container(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Icon(
-                        FontAwesomeIcons.hotTub,
-                        size: 17,
-                        color: Colors.blueGrey[600],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(
+                          FontAwesomeIcons.hotTub,
+                          size: 17,
+                          color: Colors.blueGrey[600],
+                        ),
                       ),
-                    ),
-                    Text(
-                      this.bathrooms,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.blueGrey[700],
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
+                      Text(
+                        this.bathrooms,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.blueGrey[700],
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Icon(
-                        FontAwesomeIcons.ruler,
-                        size: 17,
-                        color: Colors.blueGrey[600],
+                Container(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(
+                          FontAwesomeIcons.ruler,
+                          size: 17,
+                          color: Colors.blueGrey[600],
+                        ),
                       ),
-                    ),
-                    Text(
-                      '${this.size} ft sq',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.blueGrey[700],
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
+                      Text(
+                        '${this.size} ft sq',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.blueGrey[700],
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Icon(
-                        FontAwesomeIcons.home,
-                        size: 17,
-                        color: Colors.blueGrey[600],
+                Container(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(
+                          FontAwesomeIcons.home,
+                          size: 17,
+                          color: Colors.blueGrey[600],
+                        ),
                       ),
-                    ),
-                    Text(
-                      this.type,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.blueGrey[700],
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
+                      Text(
+                        this.type,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.blueGrey[700],
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Icon(
-                        FontAwesomeIcons.bed,
-                        size: 17,
-                        color: Colors.blueGrey[600],
+                Container(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(
+                          FontAwesomeIcons.bed,
+                          size: 17,
+                          color: Colors.blueGrey[600],
+                        ),
                       ),
-                    ),
-                    Text(
-                      this.bedrooms,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.blueGrey[700],
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
+                      Text(
+                        this.bedrooms,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.blueGrey[700],
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ]),
+              ],
+            ),
             SizedBox(height: 10),
           ],
         ),
